@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
@@ -7,11 +8,27 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] private float _damage;
     [SerializeField] private float _attackRange;
     [SerializeField] private float _timeBetweenAttack;
-
+    [Range(0, 180)][SerializeField] private float _attackAngle;
+    [SerializeField] private Vector3 _attackOffset;
+    [SerializeField] private Vector3 _attackDirection;
+    [SerializeField] private Vector3 _enemyDirection;
+ 
     private float _timer;
+
+    public static Vector3 attackDir;
+    public static Vector3 enemyDir;
 
     private void Update()
     {
+        float fireHorizontal = Input.GetAxisRaw("Mouse X");
+        float fireVertical = Input.GetAxisRaw("Mouse Y");
+
+        Vector3 mousePosition = new Vector2(Input.mousePosition.x - Screen.width / 2, Input.mousePosition.y - Screen.height / 2);
+        _attackDirection = (mousePosition - new Vector3(transform.position.x - _attackOffset.x, transform.position.y - _attackOffset.y, 0));
+        attackDir = _attackDirection;
+
+        Debug.DrawLine(transform.position - _attackOffset, _attackDirection, Color.blue);
+
         Attack();
     }
 
@@ -22,9 +39,9 @@ public class PlayerAttack : MonoBehaviour
     }
     
 
-    private  void Attack()
+    private void Attack()
     {
-        if (Input.GetKey(KeyCode.J))
+        if (Input.GetMouseButton(0))
         {
             if (_timer <= 0)
             {
@@ -34,7 +51,13 @@ public class PlayerAttack : MonoBehaviour
                 {
                     for (int i = 0; i < enemies.Length; i++)
                     {
-                        enemies[i].GetComponent<DamageableObject>().ApllyDamage(_damage);
+                        Vector2 enemyDirection = (enemies[i].transform.position - transform.position);
+                        enemyDir = enemyDirection;
+
+                        if (Vector2.Angle(enemyDirection, _attackDirection) <= _attackAngle)
+                        {
+                            enemies[i].GetComponent<DamageableObject>().ApplyDamage(_damage);
+                        }
                     }
                 }
 
@@ -44,6 +67,10 @@ public class PlayerAttack : MonoBehaviour
             {
                 _timer -= Time.deltaTime;
             }
+        }
+        else
+        {
+            _timer -= Time.deltaTime;
         }
     }
 }
