@@ -7,7 +7,7 @@ public class DamageableObject : MonoBehaviour
 
     public float Health => _health;
 
-    public void ApllyDamage(float damage)
+    public void ApplyDamage(float damage)
     {
         _health -= damage;
 
