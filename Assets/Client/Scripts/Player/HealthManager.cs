@@ -9,10 +9,12 @@ public class HealthManager : MonoBehaviour
 
     public void HurtPlayer(int damage)
     {
+        var player = GetComponent<LevelManager>();
         _currentHealth -= damage;
         if (_currentHealth <= 0)
         {
-            gameObject.SetActive(false);
+            player.Die();
+            _currentHealth = 10;
         }
     }
 }
