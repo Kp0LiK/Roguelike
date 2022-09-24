@@ -28,10 +28,8 @@ public class HealthManager : MonoBehaviour
 
     public void HurtPlayer(int damage)
     {
-<<<<<<< HEAD:Assets/Client/Scripts/Player/HealthManager.cs
         var player = GetComponent<LevelManager>();
-        _currentHealth -= damage;
-=======
+
         if (Input.GetMouseButton(1) || Vector3.Angle(_attackDirection, _enemyDirection) <= _shieldAngle)
         {
             _currentHealth -= Mathf.Clamp((damage - _shield) * (100 / (100 + _protection)), 0, _currentHealth);
@@ -41,7 +39,6 @@ public class HealthManager : MonoBehaviour
             _currentHealth -= Mathf.Clamp(damage * (100 / (100 + _protection)), 0, _currentHealth);
         }
 
->>>>>>> 7036206 (Attack/Defence system):Assets/Client/Scripts/HealthManager.cs
         if (_currentHealth <= 0)
         {
             player.Die();
