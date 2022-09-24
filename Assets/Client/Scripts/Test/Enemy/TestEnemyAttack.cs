@@ -2,16 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TestEnemyAttack : MonoBehaviour, IAttacking
+public class TestEnemyAttack : MonoBehaviour
 {
-    [SerializeField] private CircleCollider2D attackTrigger2D;
+    [SerializeField] private LayerMask _damageLayerMask;
     private float _cooldownTimer = 0f;
     [SerializeField] private Transform _target;
     private EnemyAggro aggro;
     [SerializeField] private List<Property> _damage;
     [SerializeField] private float _cooldown;
     [SerializeField] private float _attackRange;
-    [SerializeField][Range(0, 180)] private float _attackAngle;
 
     private void OnEnable()
     {
@@ -21,41 +20,35 @@ public class TestEnemyAttack : MonoBehaviour, IAttacking
 
     private void Awake()
     {
-        if (_damage[0].Type != DamageType.Default)
-        {
-            _damage.Insert(0, new Property(DamageType.Default));
-            Debug.LogWarning(@"Default damage (EnemyAttack.Damage) has been not assigned. 
-            Default damage of zero amount was assigned automatically");
-        }
-
-        if (attackTrigger2D == null)
-        {
-            attackTrigger2D = gameObject.AddComponent<CircleCollider2D>();
-            attackTrigger2D.radius = _attackRange;
-            attackTrigger2D.isTrigger = true;
-        }
+        // if (_damage[0].Type != DamageType.Default)
+        // {
+        //     _damage.Insert(0, new Property(DamageType.Default));
+        //     Debug.LogWarning(@"Default damage (EnemyAttack.Damage) has been not assigned. 
+        //     Default damage of zero amount was assigned automatically");
+        // }
     }
 
     private void Update()
     {
         _cooldownTimer -= Mathf.Clamp(Time.deltaTime, 0, _cooldownTimer);
+        Attack(_damage, transform, _damageLayerMask, _cooldown, _attackRange);
     }
 
-    void OnTriggerStay2D(Collider2D other)
+    public float Attack(List<Property> damage, Transform attackPoint, LayerMask damageLayerMask, float cooldown, float attackRange)
     {
-        if (other is IDamageable && Input.GetMouseButton(0)
-            && other.transform == _target)
+        Collider2D[] enemies =
+        Physics2D.OverlapCircleAll(attackPoint.position, _attackRange, _damageLayerMask);
+        if (enemies.Length != 0)
         {
-            Attack(other.transform, _damage, _cooldown, _attackAngle);
-        }
-    }
-
-    public float Attack(Transform enemy, List<Property> damage, float cooldown, float attackAngle)
-    {
-        if (_cooldownTimer <= 0 && enemy != null)
-        {
-            _cooldownTimer = cooldown;
-            return enemy.GetComponent<IDamageable>().TakeDamage(damage);
+            for (int i = 0; i < enemies.Length; i++)
+            {
+                if (_cooldownTimer <= 0 && enemies[i] != null 
+                    && enemies[i].TryGetComponent<IDamageable>(out IDamageable enemy))
+                {
+                    _cooldownTimer = cooldown;
+                    enemy.TakeDamage(_damage);
+                }
+            }
         }
         return 0;
     }
