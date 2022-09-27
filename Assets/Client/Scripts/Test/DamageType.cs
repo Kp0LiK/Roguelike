@@ -1,6 +1,5 @@
 using System;
 
-[Flags]
 public enum DamageType
 {
     None = 0,
@@ -19,5 +18,5 @@ public enum DamageType
     Ice = 128,
     Poison = 256,
     Magic = 512,
-    Elemental = Fire | Ice | Poison
+    Elemental = Fire | Ice | Poison | Magic
 }

@@ -11,12 +11,9 @@ public class EnemyAggro : MonoBehaviour
     
     private Transform _target;
 
-    public UnityAction<Transform> PlayerDetected;
-
     private void Awake()
     {
         _target = FindObjectOfType<TopDownCharacterController>().transform;
-        PlayerDetected?.Invoke(_target);
     }
 
     private void Update()
