@@ -8,4 +8,9 @@ public class DefaultItem : ItemSO
         ItemName = "Default";
         ItemType = ItemType.Default;
     }
+
+    public override void PickUp()
+    {
+        throw new System.NotImplementedException();
+    }
 }

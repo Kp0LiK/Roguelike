@@ -64,8 +64,8 @@ public class TestPlayerAttack : MonoBehaviour
                     return enemies[i].GetComponent<IDamageable>().TakeDamage(_damage);
                 }
             }
-            return -1;
+            return 0;
         }
-        return -2;
+        return -1;
     }
 }

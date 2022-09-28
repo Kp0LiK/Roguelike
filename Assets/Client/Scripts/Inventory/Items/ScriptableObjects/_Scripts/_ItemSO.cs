@@ -1,17 +1,16 @@
 using UnityEngine;
 
-public abstract class ItemSO : ScriptableObject
+public abstract class ItemSO : ScriptableObject, IPickUpable
 {
-    [SerializeField] private string _itemName;
-    [SerializeField] private ItemType _itemType;
-    [SerializeField] private Sprite _inventoryIcon;
-    [SerializeField] private GameObject _itemPrefab;
 
-    public ItemType ItemType { get => _itemType; protected set => _itemType = value; }
-    public string ItemName { get => _itemName; protected set => _itemName = value; }
-    public Sprite InventoryIcon { get => _inventoryIcon; set => _inventoryIcon = value; }
-    public GameObject ItemPrefab { get => _itemPrefab; protected set => _itemPrefab = value; }
+    [field: SerializeField] public ItemType ItemType { get; protected set; }
+    [field: SerializeField] public string ItemName { get; protected set; }
+    [field: SerializeField] public Sprite InventoryIcon { get; protected set; }
+    [field: SerializeField] public GameObject ItemPrefab { get; protected set; }
+    [field: SerializeField] public int MaxStack { get; protected set; }
 
     [TextArea(10, 20)]
     public string description;
+
+    public abstract void PickUp();
 }

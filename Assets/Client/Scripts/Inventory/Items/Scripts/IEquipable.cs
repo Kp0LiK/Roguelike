@@ -1,18 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using UnityEngine.Events;
 
-public class IEquipable : MonoBehaviour
+public interface IEquipable
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public event UnityAction<ItemSO> Equipped;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public void Equip();
 }

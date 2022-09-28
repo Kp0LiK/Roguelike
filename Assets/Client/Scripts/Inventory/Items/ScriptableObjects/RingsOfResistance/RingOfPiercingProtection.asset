@@ -12,9 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 832023db4971bb44e876a73fb42173a6, type: 3}
   m_Name: RingOfPiercingProtection
   m_EditorClassIdentifier: 
-  _itemName: Ring
-  _itemPrefab: {fileID: 0}
-  _itemType: 2
+  <ItemType>k__BackingField: 2
+  <ItemName>k__BackingField: Ring
+  <InventoryIcon>k__BackingField: {fileID: 0}
+  <ItemPrefab>k__BackingField: {fileID: 8939780854279192905, guid: 4c434b2fe34bd1e41aba7215d3ddae5a,
+    type: 3}
+  <MaxStack>k__BackingField: 8
   description: 
   _resistanceProperties:
   - type: 8

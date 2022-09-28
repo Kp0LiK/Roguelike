@@ -1,4 +1,4 @@
 public interface IPickUpable
 {
-    public bool PickUp();
+    public void PickUp();
 }

@@ -1,8 +1,6 @@
-using System;
-using System.Collections.ObjectModel;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class EnemyHealth : MonoBehaviour, IDamageable
 {
@@ -11,22 +9,7 @@ public class EnemyHealth : MonoBehaviour, IDamageable
     [SerializeField] private float _invincibilityTimer;
     [SerializeField] private DamageSensitivities damageSensitivities;
 
-    // private void Awake()
-    // {
-    //     if (_protection[0].Type != DamageType.Default)
-    //     {
-    //         _protection.Insert(0, new Property(DamageType.Default));
-    //         Debug.LogWarning(@"Default protection (EnemyHealth._protection) has been not assigned. 
-    //         Default protection of zero amount was assigned automatically");
-    //     }
-
-    //     if (_weaknesses == null)
-    //     {
-    //         _weaknesses.Insert(0, new Property(DamageType.None));
-    //         Debug.LogWarning(@"EnemyHealth._weakness can not be null. 
-    //         Empty EnemyHealth._weakness element was assigned.");
-    //     }
-    // }
+    public event UnityAction Died;
 
     private void Update()
     {
@@ -52,6 +35,7 @@ public class EnemyHealth : MonoBehaviour, IDamageable
 
     private void Die()
     {
+        Died?.Invoke();
         Destroy(gameObject);
     }
 }

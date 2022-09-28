@@ -12,10 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75f626b2d793ea943bb9a0017c7f5fb3, type: 3}
   m_Name: RingOfFireTouch
   m_EditorClassIdentifier: 
-  _itemName: Ring
-  _itemPrefab: {fileID: 0}
-  _itemType: 2
-  description: 
+  <ItemType>k__BackingField: 2
+  <ItemName>k__BackingField: Ring Of Fire Touch
+  <InventoryIcon>k__BackingField: {fileID: 0}
+  <ItemPrefab>k__BackingField: {fileID: 8939780854279192905, guid: 4c434b2fe34bd1e41aba7215d3ddae5a,
+    type: 3}
+  <MaxStack>k__BackingField: 8
+  description: '--Tier 1--
+
+
+    If equiped:
+
+'
   _damageProperties:
   - type: 64
     amount: 5
+  slot: 0
