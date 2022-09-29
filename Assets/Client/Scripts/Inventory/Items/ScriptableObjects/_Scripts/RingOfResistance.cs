@@ -3,21 +3,16 @@ using UnityEngine;
 using UnityEngine.Events;
 
 [CreateAssetMenu(fileName = "NewRingOfResistance", menuName = "Inventory/Items/RingOfResistance")]
-public class RingOfResistance : ItemSO, IEquipable
+public class RingOfResistance : DefaultItem
 {
     [SerializeField] private List<Damage> _resistanceProperties;
 
-    public event UnityAction<ItemSO> Equipped;
+    // public event UnityAction<ItemSO> Equipped;
 
     private void Awake()
     {
         ItemName = "Ring";
         ItemType = ItemType.Ring;
-    }
-
-    public override void PickUp()
-    {
-        throw new System.NotImplementedException();
     }
 
     public void Equip()

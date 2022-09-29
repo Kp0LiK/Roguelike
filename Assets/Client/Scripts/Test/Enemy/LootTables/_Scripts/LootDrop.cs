@@ -5,7 +5,7 @@ public class LootDrop : MonoBehaviour
     private EnemyHealth enemy;
 
     [SerializeField] private LootTable lootTable;
-    [SerializeField] private float itemDispersion;
+    [SerializeField] private float itemsDispersion;
 
     void OnEnable()
     {
@@ -26,23 +26,8 @@ public class LootDrop : MonoBehaviour
             {
                 int quantity = lootTable.PickLoot(loot);
 
-                for (int i = quantity - 1; i >= 0 ; i--)
-                {
-                    Drop(loot);
-                }
+                loot.Item.Drop(loot.Item, transform.position, itemsDispersion, quantity);
             }
         }
-    }
-
-    void Drop(Loot loot)
-    {
-        Instantiate(loot.Item.ItemPrefab,
-                        new(
-                            transform.position.x + Random.Range(-itemDispersion, itemDispersion),
-                            transform.position.y + Random.Range(-itemDispersion, itemDispersion),
-                            0),
-                        Quaternion.identity);
-
-        Debug.Log("Item dropped");
     }
 }
