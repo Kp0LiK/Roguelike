@@ -15,7 +15,10 @@ public class HealthManager : MonoBehaviour
         if (_currentHealth <= 0)
         {
             _currentHealth = 0;
+<<<<<<< HEAD
             player.Die();
+=======
+>>>>>>> feature/PickUpDropSystem
             _currentHealth = _maxHealth;
         }
         UpdateHealth();
